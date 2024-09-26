@@ -1,12 +1,9 @@
-/*
-new kakao.maps.LatLng(위도, 경도) : 지도와 마커를 출력할 때 필요한 위치 인스턴스 반환
-new kakao.maps.Map(DOM, option) : 지도 인스턴스 반환
-new kakao.maps.Maker({position : 위치 인스턴스}) : 특정 위치에 생성되는 마커인스턴스 반환
-// 마커 인스턴스.setMap(지도 인스턴스) : 기존 지도에 마커를 세팅해주는 함수
-*/
-
 //frame El 지도를 생성할 프레임 요소 변수에 할당
 const mapContainer = document.querySelector('#map'); // 지도를 표시할 div 
+
+const [btnOn, btnOff] = document.querySelectorAll("nav button");
+
+const btnToggle = document.querySelector("nav button");
 
 //map option (position instance , level)
 const mapOption = {
@@ -41,4 +38,24 @@ map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.BOTTOMRIGHT);
 // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-// marker.setMap(null);    
+// marker.setMap(null);
+
+//지도 인스턴스에 교통량 레이어 추가
+btnToggle.addEventListener("click", e => {
+  e.target.classList.toggle("on");
+  if (e.target.classList.contains("on")) {
+    map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+    e.target.innerText = "traffic OFF";
+  }
+  else {
+    map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+    e.target.innerText = "traffic ON";
+  }
+});
+
+//지도 인스턴스에 교통량 레이어 추가
+//map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+//map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+
+//미션 1 - traffic ON버튼 클릭시 교통량 레이어 활성화 , traffic OFF 버튼 클릭시 교통량 레이어 비활성화
+//미션 2 - 토글버튼 : 버튼하나로 위의기능을 껏다켰다하도록 설정
