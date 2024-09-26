@@ -28,7 +28,7 @@ let marker = new kakao.maps.Marker({
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
 
-//브라우저 리사이즈이벤트가 발생할ㅇ때마다
+//브라우저 리사이즈이벤트가 발생할때마다
 window.addEventListener("resize", () => {
   map = new kakao.maps.Map(mapContainer, mapOption);
   //마커 인스턴스에 setMap 함수를 호출해서 인수로 지도 인스턴스 집어넣음
