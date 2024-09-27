@@ -2,6 +2,7 @@
 const mapContainer = document.querySelector('#map'); // 지도를 표시할 div 
 const btnToggle = document.querySelector(".trafficToggle");
 
+
 //map option (position instance , level)
 const mapOption = {
 
@@ -52,10 +53,15 @@ btnToggle.addEventListener("click", e => {
   }
 });
 
+
+
 //roadview setting
 const viewContainer = document.querySelector('#view');
 const view = new kakao.maps.Roadview(viewContainer); //로드뷰 객체
 const viewClient = new kakao.maps.RoadviewClient();
+
+const btnViewToggle = document.querySelector('.viewToggle');
+const [mapEl, viewEl] = document.querySelectorAll(".frame > figure");
 
 // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
 viewClient.getNearestPanoId(mapOption.center, 50, panoId => {
@@ -67,4 +73,22 @@ kakao.maps.event.addListener(view, 'init', () => {
     position: mapOption.center,
     map: view //this is same as previous marker, connecting into part of map  
   }));
+});
+
+btnViewToggle.addEventListener("click", e => {
+  e.target.classList.toggle('on');
+
+  //현재 토글 버튼에 on이 붙어있으면 view가 활성화되어있는 상태이기 때문에
+  if (e.target.classList.contains('on')) {
+    //버튼의 텍스트를 Roadview OFF라고 변경
+    e.target.innerText = 'Roadview OFF';
+    //view보임처리, map숨김처리
+    viewEl.classList.add('on');
+    mapEl.classList.remove('on');
+  } // 위와 정반대 처리
+  else {
+    e.target.innerText = 'Roadview ON';
+    viewEl.classList.remove('on');
+    mapEl.classList.add('on');
+  }
 });
