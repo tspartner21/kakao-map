@@ -41,16 +41,17 @@ window.addEventListener("resize", () => {
   //기존 map, market변수에 변경된 인스턴스 정보값을 덮어쓰기 처리
   map = new kakao.maps.Map(mapContainer, mapOption);
 
+  //마커 인스턴스에 setMap 함수를 호출해서 인수로 지도 인스턴스 집어넣음
+  //마커가 지도 위에 표시되도록 설정
+  marker.setMap(map);
 
   //리사이즈될때마다 컨트롤 패널 다시 추가
   map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
   btnToggle.classList.remove("on");
+  btnToggle.innerText = "traffic On";
 
-  //마커 인스턴스에 setMap 함수를 호출해서 인수로 지도 인스턴스 집어넣음
-  //마커가 지도 위에 표시되도록 설정
-  marker.setMap(map);
 
 
 });
@@ -61,12 +62,10 @@ btnToggle.addEventListener("click", e => {
   if (e.target.classList.contains("on")) {
     map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
     e.target.innerText = "traffic OFF";
-    isTrafficOn = true; //교통 레이어 상태 업데이트
   }
   else {
     map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
     e.target.innerText = "traffic ON";
-    isTrafficOn = false; //교통 레이어 상태 업데이트
   }
 });
 
