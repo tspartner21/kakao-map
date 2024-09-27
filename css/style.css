@@ -51,5 +51,11 @@ main #map {
   height: 60vh;
   background: #000;
 }
+main #view {
+  width: 100%;
+  height: 60vh;
+  background: #000;
+  margin-bottom: 30px;
+}
 
 /*# sourceMappingURL=style.css.map */
